@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - ZoneHit
+  - Trap
   layers:
   - Default
   - TransparentFX

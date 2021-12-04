@@ -12,6 +12,8 @@ public class PlayerBehaviour : MonoBehaviour
     */
     public char myState = 'd';
 
+    public Vector3 startPosition;
+
     //Variáveis de movimentação
     public CharacterController controller;
     private Vector3 playerVelocity;
@@ -27,6 +29,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         controller = this.GetComponent<CharacterController>();
+        startPosition = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -95,5 +98,10 @@ public class PlayerBehaviour : MonoBehaviour
     public void ChangeState(char state)
     {
         myState = state;
+    }
+
+    public void Respawn()
+    {
+        gameObject.transform.position = startPosition;
     }
 }

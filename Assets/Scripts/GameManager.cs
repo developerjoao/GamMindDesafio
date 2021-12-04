@@ -83,11 +83,24 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         zoneHint.SetActive(false);
     }
+
+    public void ChangeCameraTarget(GameObject newTarget)
+    {
+        cameraRef.ChangeTarget(newTarget);
+    }
+
+    public void ReturnCameraToPlayer()
+    {
+        cameraRef.ReturnCameraToPlayer();
+    }
     //Fim do management de elementos visuais
 
 
     //Atualização dos estados do jogo
     public TextMeshProUGUI[] challengeState;
+    public bool[] challengesWon;
+    public InteractableObject[] taskObjects;
+    public GameObject[] invWalls;
     public void ChangeChallengeState(int index)
     {
         challengeState[index].text = "Concluído!";
@@ -96,6 +109,27 @@ public class GameManager : MonoBehaviour
     public void ChangePlayerState(char state)
     {
         player.ChangeState(state);
+    }
+
+    public void AddPage(int index)
+    {
+        challengesWon[index] = true;
+        invWalls[index].SetActive(false);
+    }
+
+    public void ClearPages()
+    {
+        for(int i = 0; i< challengesWon.Length; i++){
+            challengesWon[i] = false;
+            challengeState[i].text = "Não concluído";
+            taskObjects[i].ResetTask();
+        }
+        for(int i=0; i< invWalls.Length;i++)
+        {
+            invWalls[i].SetActive(true);
+        }
+        pageCountInt = 0;
+        pageCount.text = pageCountInt.ToString();
     }
     //Fim da atualização dos estados do jogo
 }
