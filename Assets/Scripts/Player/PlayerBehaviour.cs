@@ -29,7 +29,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         controller = this.GetComponent<CharacterController>();
-        startPosition = gameObject.transform.position;
+        startPosition = new Vector3(0.0f ,0.94f , -9.18f);
     }
 
     // Update is called once per frame
@@ -49,12 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
     RaycastHit hit;
     public void FreeMovement()
     {
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f) && hit.transform.tag == "Interactable")
-        {
-            GameManager.Instance.ShowInteractButton();
-        }else{
-            GameManager.Instance.DisableInteractButton();
-        }
+        CheckForward();
         CheckZone();
 
         groundedPlayer = controller.isGrounded;
@@ -87,6 +82,24 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 
+    public void CheckForward()
+    {
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f) && hit.transform.tag == "Exit")
+        {
+            GameManager.Instance.WinGame();
+        }
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f) && hit.transform.tag == "Trap")
+        {
+            GameManager.Instance.KillPlayer();
+        }
+        else if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f) && hit.transform.tag == "Interactable")
+        {
+            GameManager.Instance.ShowInteractButton();
+        }else{
+            GameManager.Instance.DisableInteractButton();
+        }
+    }
+
     public void CheckZone()
     {
         if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f) && hit.transform.tag == "ZoneHit")
@@ -98,10 +111,5 @@ public class PlayerBehaviour : MonoBehaviour
     public void ChangeState(char state)
     {
         myState = state;
-    }
-
-    public void Respawn()
-    {
-        gameObject.transform.position = startPosition;
     }
 }

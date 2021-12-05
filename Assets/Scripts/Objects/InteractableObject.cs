@@ -6,10 +6,22 @@ public class InteractableObject : MonoBehaviour
 {
     public GameObject myCanvas;
     public bool isCompleted = false;
+    public bool isGhost = false;
+    public bool isSwitch = false;
     public GameObject myPage;
+    public GameObject switchObject;
 
     public void Interact()
     {
+        if(GameManager.Instance.challengesWon[0] && isSwitch)
+        {
+            switchObject.SetActive(false);
+        }
+        if(isGhost)
+        {
+            GameManager.Instance.KillPlayer();
+        }
+
         if(!isCompleted)
         {
             if(!myCanvas.activeSelf)

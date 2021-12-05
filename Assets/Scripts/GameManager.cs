@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Awake()
@@ -42,6 +43,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public GameObject firstPanel;
+    public void StartGame()
+    {
+        firstPanel.SetActive(false);
+        player.ChangeState('d');
     }
 
 
@@ -130,6 +138,17 @@ public class GameManager : MonoBehaviour
         }
         pageCountInt = 0;
         pageCount.text = pageCountInt.ToString();
+    }
+
+    public void KillPlayer()
+    {
+        ClearPages();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void WinGame()
+    {
+        SceneManager.LoadScene(2);
     }
     //Fim da atualização dos estados do jogo
 }
