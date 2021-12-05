@@ -22,3 +22,6 @@ Requisitos minimos:
 - Objetos que possam ser coletados (moedas, por exemplo). É necessário apresentar
 	através de um HUD a quantidade de objetos coletados pelo jogador; 
 - Um puzzle/desafio simples envolvendo matemática básica.
+
+Requisitos Diferenciais implementados:
+- Aplicação da Universal Render Pipeline.
